@@ -15,8 +15,13 @@ RES_SETTINGS = {
 }
 
 # --- 2. MOUNT DRIVE ---
-if not os.path.exists('/content/drive'):
-    drive.mount('/content/drive')
+try:
+    if not os.path.exists('/content/drive'):
+        drive.mount('/content/drive', force_remount=True)
+    print("✅ Drive mounted successfully.")
+except Exception as e:
+    print(f"⚠️ Drive mount failed: {e}")
+    print(f"📁 Falling back to local storage")
 
 # --- 3. QUEUE ---
 save_path = "/content/drive/compressed_videos"
